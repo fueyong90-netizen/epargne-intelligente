@@ -1,0 +1,213 @@
+/* ════════════════════════════════════════════════════════════
+   styles/main.css — Base globale
+   Chargé EN PREMIER → ses variables sont disponibles partout
+   ════════════════════════════════════════════════════════════ */
+ 
+/* ── VARIABLES CSS (Custom Properties) ─────────────────────
+   :root = sélecteur de l'élément racine <html>
+   Les variables --nom peuvent être utilisées partout avec var(--nom) */
+:root {
+  /* Palette principale */
+  --color-primary:     #38A169; /* vert principal */
+  --color-primary-dk:  #1A7A4A; /* vert foncé pour hover */
+  --color-primary-lt:  #E8F5EF; /* vert clair pour fonds */
+  --color-accent:      #3182CE; /* bleu pour liens et badges */
+  --color-danger:      #E53E3E; /* rouge pour dépenses et erreurs */
+  --color-warning:     #D69E2E; /* orange pour alertes */
+ 
+  /* Gris (arrière-plans et textes) */
+  --color-bg:          #F7FAFC; /* fond principal */
+  --color-surface:     #FFFFFF; /* fond des cartes */
+  --color-border:      #E2E8F0; /* bordures légères */
+  --color-text:        #1A202C; /* texte principal */
+  --color-text-muted:  #718096; /* texte secondaire */
+ 
+  /* Typographie */
+  --font-base: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --text-xs: 0.75rem;  /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-md: 1rem;     /* 16px — base */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem;  /* 20px */
+  --text-2xl: 1.5rem;  /* 24px */
+ 
+  /* Espacements (multiples de 4px) */
+  --sp-1: 0.25rem;  /* 4px */
+  --sp-2: 0.5rem;   /* 8px */
+  --sp-3: 0.75rem;  /* 12px */
+  --sp-4: 1rem;     /* 16px */
+  --sp-6: 1.5rem;   /* 24px */
+  --sp-8: 2rem;     /* 32px */
+ 
+  /* Effets */
+  --radius:     0.75rem;  /* arrondi des cartes */
+  --radius-sm:  0.375rem;
+  --shadow:     0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.12);
+  --transition: 0.2s ease; /* durée des animations */
+ 
+  /* Layout */
+  --sidebar-w: 240px; /* largeur de la sidebar sur desktop */
+}
+ 
+/* ── THÈME SOMBRE ───────────────────────────────────────────
+   body.dark surcharge les variables → tout le CSS s'adapte automatiquement
+   js/app.js ajoute/retire la classe 'dark' selon les paramètres */
+body.dark {
+  --color-bg:         #1A202C;
+  --color-surface:    #2D3748;
+  --color-border:     #4A5568;
+  --color-text:       #F7FAFC;
+  --color-text-muted: #A0AEC0;
+}
+ 
+/* ── RESET CSS ──────────────────────────────────────────────
+   Normalise les différences entre navigateurs
+   box-sizing: border-box : padding/border inclus dans la largeur */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ 
+body {
+  font-family: var(--font-base);
+  font-size: var(--text-md);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+  /* display:flex sur body : sidebar à gauche, main à droite */
+  display: flex;
+  min-height: 100vh; /* 100% de la hauteur du viewport */
+}
+ 
+/* ── SIDEBAR ────────────────────────────────────────────────*/
+#sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column; /* empile logo + nav verticalement */
+  padding: var(--sp-6) 0;
+  position: fixed;       /* reste en place pendant le scroll */
+  top: 0; left: 0;
+  z-index: 100;
+  transition: transform var(--transition); /* animation slide-in mobile */
+}
+ 
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 0 var(--sp-6) var(--sp-6);
+  border-bottom: 1px solid var(--color-border);
+}
+.logo-icon { font-size: 1.8rem; }
+.logo-text { font-weight: 700; font-size: var(--text-lg); }
+ 
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-6);
+  text-decoration: none;
+  color: var(--color-text-muted);
+  border-radius: 0; /* pas d'arrondi : effet plein largeur */
+  transition: all var(--transition);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+.nav-link:hover { background: var(--color-primary-lt); color: var(--color-primary); }
+/* Lien actif : bande verte à gauche + fond coloré */
+.nav-link.active {
+  background: var(--color-primary-lt);
+  color: var(--color-primary);
+  border-left: 3px solid var(--color-primary);
+  font-weight: 600;
+}
+ 
+/* ── CONTENU PRINCIPAL ──────────────────────────────────────*/
+#main-wrapper {
+  /* margin-left = largeur sidebar → contenu commence après la sidebar */
+  margin-left: var(--sidebar-w);
+  flex: 1; /* prend tout l'espace restant */
+  padding: var(--sp-8);
+  max-width: 1200px;
+}
+ 
+/* ── CARTES ─────────────────────────────────────────────────*/
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  padding: var(--sp-6);
+  box-shadow: var(--shadow);
+  margin-bottom: var(--sp-6);
+}
+ 
+/* ── BOUTONS ────────────────────────────────────────────────*/
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition);
+}
+.btn-primary { background: var(--color-primary); color: white; }
+.btn-primary:hover { background: var(--color-primary-dk); }
+.btn-outline { background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary); }
+.btn-ghost { background: transparent; color: var(--color-text-muted); }
+.btn-ghost:hover { background: var(--color-border); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+ 
+/* ── FORMULAIRES ────────────────────────────────────────────*/
+.field { display: flex; flex-direction: column; gap: var(--sp-1); margin-bottom: var(--sp-4); }
+.field label { font-size: var(--text-sm); font-weight: 500; color: var(--color-text-muted); }
+input, select, textarea {
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition: border-color var(--transition);
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(56,161,105,0.15); /* halo vert */
+}
+ 
+/* ── SPINNER DE CHARGEMENT ──────────────────────────────────*/
+.spinner {
+  width: 32px; height: 32px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  /* animation rotate : tourne en boucle infinie */
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+ 
+/* ── RESPONSIVE MOBILE ──────────────────────────────────────
+   @media : règles appliquées seulement en dessous de 768px */
+@media (max-width: 768px) {
+  /* Cacher la sidebar par défaut sur mobile */
+  #sidebar { transform: translateX(-100%); }
+  /* Classe ajoutée par JS quand le hamburger est cliqué */
+  #sidebar.open { transform: translateX(0); }
+  /* Le contenu prend toute la largeur */
+  #main-wrapper { margin-left: 0; padding: var(--sp-4); }
+  /* Afficher le bouton hamburger */
+  #menu-btn { display: block; }
+}
+@media (min-width: 769px) {
+  /* Cacher le bouton hamburger sur desktop */
+  #menu-btn, #sidebar-toggle { display: none; }
+}
