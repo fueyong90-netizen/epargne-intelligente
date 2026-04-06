@@ -211,3 +211,149 @@ input:focus, select:focus {
   /* Cacher le bouton hamburger sur desktop */
   #menu-btn, #sidebar-toggle { display: none; }
 }
+
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE MOBILE — corrections complètes
+   ════════════════════════════════════════════════════════ */
+
+/* ── MOBILE (moins de 768px) ──────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Sidebar cachée par défaut sur mobile */
+  #sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+    width: 260px;
+  }
+
+  /* Sidebar visible quand classe .open ajoutée par JS */
+  #sidebar.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+  }
+
+  /* Overlay sombre derrière la sidebar ouverte */
+  #sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+  }
+  #sidebar-overlay.visible {
+    display: block;
+  }
+
+  /* Contenu principal prend toute la largeur */
+  #main-wrapper {
+    margin-left: 0 !important;
+    padding: 16px !important;
+    width: 100%;
+  }
+
+  /* Bouton hamburger visible sur mobile */
+  #menu-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 1000;
+    width: 42px;
+    height: 42px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Décaler le contenu pour ne pas être sous le hamburger */
+  #app-content {
+    margin-top: 56px;
+  }
+
+  /* KPI grid : 2 colonnes sur mobile */
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  /* Charts : colonne unique sur mobile */
+  .charts-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Cartes : padding réduit */
+  .card {
+    padding: 16px !important;
+  }
+
+  /* Formulaires : pleine largeur */
+  .form-card input,
+  .form-card select,
+  .form-card button {
+    width: 100%;
+  }
+
+  /* Tableau transactions : masquer colonnes moins importantes */
+  .tx-actions {
+    display: flex;
+    gap: 4px;
+  }
+
+  /* Titres plus petits */
+  h1 { font-size: 1.4rem !important; }
+  h2 { font-size: 1.1rem !important; }
+
+  /* Boutons IA en colonne */
+  .ai-types {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .ai-types .btn {
+    width: 100% !important;
+  }
+
+  /* Goals grid : 1 colonne */
+  .goals-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Filtres en colonne */
+  .filters {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .filters select,
+  .filters button {
+    width: 100% !important;
+  }
+}
+
+/* ── TRÈS PETIT ÉCRAN (moins de 400px) ────────────────── */
+@media (max-width: 400px) {
+  .kpi-grid {
+    grid-template-columns: 1fr !important;
+  }
+  #main-wrapper {
+    padding: 10px !important;
+  }
+}
+
+/* ── TABLETTE (768px à 1024px) ────────────────────────── */
+@media (min-width: 768px) and (max-width: 1024px) {
+  :root {
+    --sidebar-w: 200px;
+  }
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  #main-wrapper {
+    padding: 24px !important;
+  }
+}

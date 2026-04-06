@@ -128,5 +128,41 @@ const App = {
     if (changes.theme) this.applyTheme(changes.theme);
   }
 };
+
+/* ── GESTION SIDEBAR MOBILE ── */
+document.addEventListener('DOMContentLoaded', () => {
+  // Créer l'overlay s'il n'existe pas
+  if (!document.getElementById('sidebar-overlay')) {
+    const overlay = document.createElement('div');
+    overlay.id = 'sidebar-overlay';
+    document.body.appendChild(overlay);
+  }
+
+  // Bouton hamburger → ouvre la sidebar
+  const menuBtn = document.getElementById('menu-btn');
+  if (menuBtn) {
+    menuBtn.addEventListener('click', () => {
+      document.getElementById('sidebar').classList.add('open');
+      document.getElementById('sidebar-overlay').classList.add('visible');
+    });
+  }
+
+  // Clic overlay → ferme la sidebar
+  document.getElementById('sidebar-overlay')
+    .addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebar-overlay').classList.remove('visible');
+    });
+
+  // Clic sur un lien sidebar → ferme la sidebar sur mobile
+  document.querySelectorAll('#sidebar .nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        document.getElementById('sidebar').classList.remove('open');
+        document.getElementById('sidebar-overlay').classList.remove('visible');
+      }
+    });
+  });
+});
  
 window.App = App;
