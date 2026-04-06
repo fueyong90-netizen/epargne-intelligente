@@ -9,7 +9,7 @@ const Storage = {
   // ── BASE URL DU BACKEND ─────────────────────────────────
   // En Phase 2, toutes les requêtes partent vers cette adresse
   // En prod, remplacer par l'URL Railway : 'https://mon-app.railway.app'
-  API_URL: 'http://localhost:3000/api',
+  API_URL: '/api',
  
   // ── MODE COURANT ─────────────────────────────────────────
   // 'local' = Phase 1 (localStorage)

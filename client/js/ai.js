@@ -99,7 +99,7 @@ const AIModule = {
       const payload = this.preparePayload(type, state);
  
       // fetch : API native pour les requêtes HTTP (remplace XMLHttpRequest)
-      const response = await fetch('http://localhost:3000/api/ai/analyze', {
+      const response = await fetch('/api/ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }, // indique que le corps est JSON
         body: JSON.stringify(payload) // objet JS → chaîne JSON
