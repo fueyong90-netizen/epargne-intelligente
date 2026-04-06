@@ -161,4 +161,3 @@ const Dashboard = {
 };
 
 window.Dashboard = Dashboard;
-EOF
